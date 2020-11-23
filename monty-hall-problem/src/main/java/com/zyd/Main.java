@@ -46,6 +46,5 @@ public class Main {
 //        System.out.println(stage);
 
         return stage.isCorrect();
-//        System.out.println(stage.isCorrect());
     }
 }
