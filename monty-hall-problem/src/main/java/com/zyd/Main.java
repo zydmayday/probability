@@ -2,10 +2,9 @@ package com.zyd;
 
 import com.zyd.strategy.ChangeChoiceStrategy;
 import com.zyd.strategy.ChooseStrategy;
-import com.zyd.strategy.NotChangeChoiceStrategy;
 
 /**
- * 蒙提霍尔问题
+ * Monty Hall Problem
  */
 public class Main {
 
