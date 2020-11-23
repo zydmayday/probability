@@ -3,7 +3,6 @@ package com.zyd;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Stage {
 
@@ -12,6 +11,10 @@ public class Stage {
 
     public Stage() {
         this.doors = randomInitDoors();
+    }
+
+    public void doOperation(StageOperation op) {
+        op.doOperation(doors);
     }
 
     private List<Door> randomInitDoors() {
@@ -23,29 +26,8 @@ public class Stage {
         return doors;
     }
 
-    public List<Integer> getNotOpenedDoorsIndex() {
-        return doors.stream().filter(d -> !d.isOpened()).map(Door::getIndex)
-                    .collect(Collectors.toList());
-    }
-
-    public List<Door> getNotChoosedDoors() {
-        return doors.stream().filter(d -> !d.isChoosed()).collect(Collectors.toList());
-    }
-
-    public void chooseDoor(int index) {
-        Door door = doors.get(index);
-        door.setChoosed(true);
-    }
-
-    public void changeChoose(List<Integer> doorsIndex) {
-        for (int i : doorsIndex) {
-            Door door = doors.get(i);
-            door.setChoosed(!door.isChoosed());
-        }
-    }
-
     public boolean isCorrect() {
-        return this.doors.stream().filter(Door::isAnswer).anyMatch(Door::isChoosed);
+        return this.doors.stream().filter(Door::isAnswer).anyMatch(Door::isChosen);
     }
 
     @Override

@@ -13,18 +13,18 @@ public class Player {
     }
 
     /**
-     * 第一次选择方案
-     * @param stage
+     * Player choose the door based on his strategy.
+     * @param doors doors in stage
      */
-    public void chooseFrom(Stage stage) {
-        List<Integer> doorsIndex = stage.getNotOpenedDoorsIndex();
-        stage.chooseDoor(strategy.choose(doorsIndex));
+    public void chooseDoor(List<Door> doors) {
+        strategy.chooseFirstTime(doors);
     }
 
-    public void chooseAgainFrom(Stage stage) {
-        List<Integer> doorsIndex = stage.getNotOpenedDoorsIndex();
-        if (strategy.isChangeChoice()) {
-            stage.changeChoose(doorsIndex);
-        }
+    /**
+     * Player choose the door again based on his strategy.
+     * @param doors doors in stage
+     */
+    public void chooseAgain(List<Door> doors) {
+        strategy.chooseSecondTime(doors);
     }
 }

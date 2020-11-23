@@ -1,8 +1,8 @@
 package com.zyd;
 
-import com.zyd.strategy.ChangeStrategy;
+import com.zyd.strategy.ChangeChoiceStrategy;
 import com.zyd.strategy.ChooseStrategy;
-import com.zyd.strategy.NotChangeStrategy;
+import com.zyd.strategy.NotChangeChoiceStrategy;
 
 /**
  * 蒙提霍尔问题
@@ -13,19 +13,21 @@ public class Main {
         int count = 3000;
         int correct = 0;
         for (int i = 0; i < count; i++) {
-            if (play(new NotChangeStrategy())) {
+            // we can also use in-line lambda to replace the implemented NotChangeChoiceStrategy
+            // if (play(new NotChangeChoiceStrategy)) {
+            if (play(doors -> {})) {
                 correct++;
             }
         }
-        System.out.println(String.format("不改变选择，正确率: %d / %d = %.2f%%", correct, count, correct * 1.0 / count));
+        System.out.printf("not change choice: %d / %d = %.2f%%%n", correct, count, correct * 1.0 / count);
 
         correct = 0;
         for (int i = 0; i < count; i++) {
-            if (play(new ChangeStrategy())) {
+            if (play(new ChangeChoiceStrategy())) {
                 correct++;
             }
         }
-        System.out.println(String.format("改变选择，正确率: %dj:: / %d = %.2f%%", correct, count, correct * 1.0 / count));
+        System.out.printf("change choice: %d / %d = %.2f%%%n", correct, count, correct * 1.0 / count);
     }
 
     private static boolean play(ChooseStrategy strategy) {
@@ -33,17 +35,17 @@ public class Main {
         Host host = new Host();
         Stage stage = new Stage();
 
-        // 玩家第一次选择
-        player.chooseFrom(stage);
-//        System.out.println(stage);
+        // Player make his first choice
+        stage.doOperation(player::chooseDoor);
+        // System.out.println(stage);
 
-        // 主持人打开不中奖的一扇门
-        host.openDoorFrom(stage);
-//        System.out.println(stage);
+        // Host open a door
+        stage.doOperation(host::openDoor);
+        // System.out.println(stage);
 
-        // 玩家再次选择
-        player.chooseAgainFrom(stage);
-//        System.out.println(stage);
+        // Player make his second choice
+        stage.doOperation(player::chooseAgain);
+        // System.out.println(stage);
 
         return stage.isCorrect();
     }
