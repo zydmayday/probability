@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Player {
 
-    ChooseStrategy strategy;
+    private final ChooseStrategy strategy;
 
     public Player(ChooseStrategy strategy) {
         this.strategy = strategy;
