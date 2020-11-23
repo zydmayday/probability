@@ -25,7 +25,7 @@ public class Main {
                 correct++;
             }
         }
-        System.out.println(String.format("改变选择，正确率: %d / %d = %.2f%%", correct, count, correct * 1.0 / count));
+        System.out.println(String.format("改变选择，正确率: %dj:: / %d = %.2f%%", correct, count, correct * 1.0 / count));
     }
 
     private static boolean play(ChooseStrategy strategy) {
